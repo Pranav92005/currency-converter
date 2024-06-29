@@ -1,6 +1,10 @@
 import  { useEffect, useState } from 'react'
 
-const  countryList = {
+interface country{
+  [key:string]:string
+
+}
+const  countryList:country = {
   AED: "AE",
   AFN: "AF",
   XCD: "AG",
@@ -166,7 +170,7 @@ export default function App() {
   const[country1,setCountry1]=useState("inr");
   const[country2,setCountry2]=useState("inr");
   const[amount,setAmount]=useState(0);
-  const[suggestion,setsuggestion]=useState([]);
+  const[suggestion,setsuggestion]=useState<string[]>([]);
   
   const[amount2,setAmount2]=useState(0);
  
@@ -196,7 +200,7 @@ useEffect(() => {
 
 const filtered=Object.keys(countryList).filter((country)=>country.toLowerCase().includes(inputtext));
 console.log(filtered);
-//@ts-ignore
+
 setsuggestion(filtered);
 
 setCountry1(e.target.value.toLowerCase());
@@ -209,7 +213,7 @@ setCountry1(e.target.value.toLowerCase());
 
 
 const filtered=Object.keys(countryList).filter((country)=>country.toLowerCase().includes(inputtext));
-//@ts-ignore
+
 setsuggestion(filtered);
 setCountry2(e.target.value.toLowerCase());
 
@@ -229,7 +233,7 @@ setCountry2(e.target.value.toLowerCase());
       
       <ul>
         {suggestion.map((country) => (
-          <li key={country}>{country}</li>
+          <li onClick={()=>{setCountry1(country.toLowerCase())}} className="bg-slate-300 border-b-4" key={country}>{country}</li>
         ))}
       </ul>
       </div>
@@ -246,7 +250,7 @@ setCountry2(e.target.value.toLowerCase());
       <input type="text" className="w-[30vw] bg-slate-200" placeholder='Country name' value={country2} onChange={handleonchange2}/>
       <ul>
         {suggestion.map((country) => (
-          <li  key={country}>{country}</li>
+          <li  onClick={()=>{setCountry2(country.toLowerCase())}}  className="bg-slate-300 border-b-4" key={country}>{country}</li>
         ))}
       </ul>
       </div>
